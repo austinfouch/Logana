@@ -1,7 +1,5 @@
-#include <vector>
+#include "board.h"
 #include <algorithm>
-#include <stdlib.h>
-#include "board.cpp"
 
 #define MAX_PIPS 6
 #define MIN_PIPS 0

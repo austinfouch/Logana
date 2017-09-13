@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Tile::Tile(int lPips, int rPips)
+Tile::Tile(const int &lPips, const int &rPips)
 {
 	this->leftPips = lPips;
 	this->rightPips = rPips;
