@@ -1,13 +1,13 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "hand.h"
+#include <vector>
 #include "board.h"
+#include "hand.h"
 
 class Player {
 public:
 	// default cstor
 	Player() : score(0) {}
-	~Player();
 
 	// copy cstor for serialization
 	Player(const int &s, const Hand &h);
@@ -17,6 +17,9 @@ public:
 
 	// will be implemented in player.cpp
 	void drawTile();
+
+	void push_back(const Tile &t);
+	Tile& operator[](const int index);
 private:
 	Hand hand;
 	int score;

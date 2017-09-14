@@ -16,3 +16,17 @@ void Player::drawTile()
 {
 	// pop tile from boneyard and copy to hand
 }
+
+void Player::play()
+{
+}
+
+void Player::push_back(const Tile &t)
+{
+	this->hand.push_back(t);
+}
+
+Tile& Player::operator[](const int index)
+{
+	this->hand[index];
+}

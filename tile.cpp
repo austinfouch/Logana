@@ -24,6 +24,11 @@ void Tile::operator=(const Tile &t)
 	this->rightPips = t.rightPips;
 }
 
+bool Tile::operator==(const Tile &t)
+{
+	return ((this->leftPips == t.leftPips) && (this->rightPips == t.rightPips));
+}
+
 ostream &operator<<(ostream& out, const Tile &t)
 {
 	out << t.leftPips << "-" << t.rightPips;

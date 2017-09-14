@@ -8,9 +8,7 @@ using namespace std;
 
 class Board{
 public:
-	// default cstor dstor
-	Board();
-	~Board();
+	Board() {}
 
 	// copy cstor, will be used for serializtion
 	Board(const Tile &eng, const vector<Tile> &left, const vector<Tile> &right);

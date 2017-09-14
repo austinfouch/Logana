@@ -5,9 +5,6 @@
 
 class Human : public Player {
 public:
-	Human();
-	~Human();
-	
 	void play(Board &board);
 	void help();
 };
