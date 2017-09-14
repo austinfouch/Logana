@@ -14,6 +14,7 @@ void Hand::push_back(const Tile &t)
 
 Tile Hand::remove(const Tile &t)
 {
+	//
 }
 
 void Hand::operator=(const Hand &h)
