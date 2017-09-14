@@ -26,3 +26,8 @@ void Boneyard::operator=(const Boneyard &by)
 {
 	this->tiles = by.tiles;
 }
+
+Tile& Boneyard::top()
+{
+	return this->tiles.top();
+}
