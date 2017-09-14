@@ -14,11 +14,22 @@
 
 class Round {
 public:
+	// default cstor
 	Round() {}
+
+	// copy cstor
 	Round(const Boneyard &by, const Board &b, const vector<Player> &ps);
+	
+	// caller function
 	void run();
+
+	// creates player objects and pushes them to players vector
 	void setup_players();
+
+	// creates tiles and shuffles them
 	deque<Tile> create_tiles();
+
+	// pop shuffled deque into players' hands and boneyard
 	void distribute_tiles(deque<Tile> &ts);
 private:
 	Boneyard boneyard;

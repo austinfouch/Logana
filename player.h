@@ -9,7 +9,7 @@ public:
 	// default cstor
 	Player() : score(0) {}
 
-	// copy cstor for serialization
+	// copy cstor
 	Player(const int &s, const Hand &h);
 
 	// implemented in human.cpp and computer.cpp
@@ -18,6 +18,7 @@ public:
 	// will be implemented in player.cpp
 	void drawTile();
 
+	// access the member Hand hand
 	void push_back(const Tile &t);
 	Tile& operator[](const int index);
 private:

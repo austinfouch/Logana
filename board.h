@@ -8,6 +8,7 @@ using namespace std;
 
 class Board{
 public:
+	// default cstor
 	Board() {}
 
 	// copy cstor, will be used for serializtion
@@ -20,7 +21,8 @@ public:
 	// assignment overload for copy cstor (serialization)
 	void operator=(const Board &b);
 
-	// displaying of the board to the user in the terminal
+	// displaying of the board to the user in the terminal --- will probably be moved
+	// to View class
 	friend ostream &operator<<(ostream& out, const Board &b);
 private:
 	Tile engine;

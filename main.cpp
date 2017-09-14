@@ -4,6 +4,6 @@ using namespace std;
 
 int main()
 {	
-	Round round;
-	round.run();
+	Round r1;
+	r1.run();
 }

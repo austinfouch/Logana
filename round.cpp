@@ -28,7 +28,10 @@ deque<Tile> Round::create_tiles()
 	void distributeTiles(vector<Tile>)
 		This function randomly accesses elements within the passed and erases them until the 
 		vector is empty. This function will later have implementation to distrbiute tiles
-		the players' hands and boneyard.
+		the players' hands and boneyard. I chose std::deque for this function because I 
+		wanted to be able to use random_shuffle(), which is not usable on std::stack or 
+		std::queue (not containers, but container adaptors), but also wanted the ability 
+		to push, pop, and top which are not possible with std::vector.
 */
 void Round::distribute_tiles(deque<Tile> &tileList)
 {
@@ -49,6 +52,14 @@ void Round::distribute_tiles(deque<Tile> &tileList)
 	}
 }
 
+/*
+	void Round::setup_players()
+		This function creates two player objects and pushes them into the member vector
+		of Player type. For serialization and tournament purposes, the Player class should
+		allow for constructor of a Player object given just the score as the vector hand will
+		be empty to start (used for new round) and a constructor that takes vector and score
+		(for serialization).
+*/
 void Round::setup_players()
 {
 	Player human;
