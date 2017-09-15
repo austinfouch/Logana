@@ -27,10 +27,10 @@ public:
 	void setup_players();
 
 	// creates tiles and shuffles them
-	deque<Tile> create_tiles();
+	vector<Tile> create_tiles();
 
-	// pop shuffled deque into players' hands and boneyard
-	void distribute_tiles(deque<Tile> &ts);
+	// pop shuffled vector into players' hands and boneyard
+	void distribute_tiles(vector<Tile> &ts);
 private:
 	Boneyard boneyard;
 	Board board;

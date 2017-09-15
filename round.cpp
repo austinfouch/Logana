@@ -7,10 +7,10 @@ using namespace std;
 		This function creates Tile objects until the fill MAX_PIPS by MAX_PIPS set is
 		complete, pushing the objects into a vector for easy random access (shuffling).
 */
-deque<Tile> Round::create_tiles()
+vector<Tile> Round::create_tiles()
 {
 	// creates the tile objects 0-0 through 6-6 and pushes into the tileList
-	deque<Tile> tileList;
+	vector<Tile> tileList;
 	int leftPips, rightPips;
 	for(leftPips = MIN_PIPS; leftPips <= MAX_PIPS; leftPips++)
 	{
@@ -20,7 +20,7 @@ deque<Tile> Round::create_tiles()
 			tileList.push_back(tile);
 		}
 	}
-	
+
 	return tileList;
 }
 
@@ -28,27 +28,24 @@ deque<Tile> Round::create_tiles()
 	void distributeTiles(vector<Tile>)
 		This function randomly accesses elements within the passed and erases them until the 
 		vector is empty. This function will later have implementation to distrbiute tiles
-		the players' hands and boneyard. I chose std::deque for this function because I 
-		wanted to be able to use random_shuffle(), which is not usable on std::stack or 
-		std::queue (not containers, but container adaptors), but also wanted the ability 
-		to push, pop, and top which are not possible with std::vector.
+		the players' hands and boneyard. 
 */
-void Round::distribute_tiles(deque<Tile> &tileList)
+void Round::distribute_tiles(vector<Tile> &tileList)
 {
 	random_shuffle(tileList.begin(), tileList.end());
 	for(int i = 0; i < NUM_PLAYERS; i++)
 	{
 		for(int j = 0; j < MAX_HAND_SIZE; j++)
 		{
-			this->players[i].push_back(tileList.front());
-			tileList.pop_front();
+			this->players[i].push_back(tileList.back());
+			tileList.pop_back();
 		}
 	}
 
 	while(!tileList.empty())
 	{
-		this->boneyard.push(tileList.front());
-		tileList.pop_front();
+		this->boneyard.push(tileList.back());
+		tileList.pop_back();
 	}
 }
 
@@ -71,7 +68,7 @@ void Round::setup_players()
 void Round::run()
 {	
 	setup_players();
-	deque<Tile> tileList = create_tiles();
+	vector<Tile> tileList = create_tiles();
 	distribute_tiles(tileList);
 
 	for(int i = 0; i < MAX_HAND_SIZE; i++)

@@ -8,7 +8,7 @@ Tile::Tile(const int &lPips, const int &rPips)
 	this->rightPips = rPips;
 }
 
-void Tile::swapPips()
+void Tile::swap_pips()
 {
 	cout << "Tile's pips were swapped: " << this->leftPips << "-" << this->rightPips;
 	int tmp;
