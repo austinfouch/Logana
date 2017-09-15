@@ -11,3 +11,7 @@
 09/13/2017 (1 hour)
 	- Implemented the Boneyard class which acts as a stack<Tile>. It contains functions Tile Boneyard::pop(), void Boneyard::push(const Tile &t), bool Boneyard::empty() and Tile& Boneyard::top() in order to give complete access to Boneyard.tiles member variable of type stack<Tile>. (30 min)
 	- Implemented further functionality for the void Round::distribute_tiles(vector<Tile> &tileList) to not only distribute the inital vector<Tile> tileList created by void Round::create_tiles() to the player's hands but also the boneyard. (30 min)
+
+09/15/2017 (10 min)
+	- Cleaned up copy constructors for each class. I was passing variables to be copied as parameters instead of 
+	passing objets of the same class to be copied. (10 min)
