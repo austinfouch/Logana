@@ -12,9 +12,9 @@ Player::Player(const int &s, const Hand &h)
 **		This function pops an tile from the boneyard stack and adds the tile to the calling
 **		player's hand.
 */
-void Player::drawTile()
+void Player::draw_tile(const Tile &t)
 {
-	// pop tile from boneyard and copy to hand
+	push_back(t);
 }
 
 void Player::play()

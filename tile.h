@@ -8,7 +8,7 @@ class Tile {
 public:
 	Tile() : leftPips(0), rightPips(0) {}
 	Tile(const int &lPips, const int &rPips);
-	void swapPips();
+	void swap_pips();
 	void operator=(const Tile &t);
 	bool operator==(const Tile &t);
 	friend ostream &operator<<(ostream& out, const Tile &t);

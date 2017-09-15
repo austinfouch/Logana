@@ -13,6 +13,8 @@ public:
 	Hand(const vector<Tile> &ts);
 	
 	// access to member tiles vector
+
+	// 
 	void push_back(const Tile &t);
 	Tile remove(const Tile &t);
 	void operator=(const Hand &h);

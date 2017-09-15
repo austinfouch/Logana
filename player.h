@@ -3,6 +3,7 @@
 #include <vector>
 #include "board.h"
 #include "hand.h"
+#include "boneyard.h"
 
 class Player {
 public:
@@ -16,7 +17,7 @@ public:
 	virtual void play();
 
 	// will be implemented in player.cpp
-	void drawTile();
+	void draw_tile(const Tile &t);
 
 	// access the member Hand hand
 	void push_back(const Tile &t);
