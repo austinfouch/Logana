@@ -10,11 +10,9 @@ public:
 	Hand() {}	
 
 	// copy cstor
-	Hand(const vector<Tile> &ts);
+	Hand(const Hand &h);
 	
-	// access to member tiles vector
-
-	// 
+	// access to member data tiles 
 	void push_back(const Tile &t);
 	Tile remove(const Tile &t);
 	void operator=(const Hand &h);

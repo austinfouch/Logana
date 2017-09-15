@@ -18,7 +18,7 @@ public:
 	Round() {}
 
 	// copy cstor
-	Round(const Boneyard &by, const Board &b, const vector<Player> &ps);
+	Round(const Round &r);
 	
 	// caller function
 	void run();

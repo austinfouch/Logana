@@ -12,7 +12,7 @@ public:
 	Board() {}
 
 	// copy cstor, will be used for serializtion
-	Board(const Tile &eng, const vector<Tile> &left, const vector<Tile> &right);
+	Board(const Board &b);
 
 	// access to the sides of the board
 	void push_left(const Tile &t);

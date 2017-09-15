@@ -3,6 +3,17 @@
 using namespace std;
 
 /*
+**	Round::Round(const Round &r)
+**		Copy cstor.
+*/
+Round::Round(const Round &r)
+{
+	this->boneyard = r.boneyard;
+	this->board = r.board;
+	this->players = r.players;
+}
+
+/*
 	void createTiles(vector<Tile>)
 		This function creates Tile objects until the fill MAX_PIPS by MAX_PIPS set is
 		complete, pushing the objects into a vector for easy random access (shuffling).
@@ -65,18 +76,25 @@ void Round::setup_players()
 	this->players.push_back(computer);
 }
 
+/*
+**	void Round::run()
+**		Acts as a main function for the Round class, setting up the players, their hands, and
+**		the boneyard for the round. Need implementation for setting up the board as well.
+*/
 void Round::run()
 {	
 	setup_players();
 	vector<Tile> tileList = create_tiles();
 	distribute_tiles(tileList);
 
+	/* distributes to the player's hands. need to make it dynamic indexing instead of 0 and 1 */
 	for(int i = 0; i < MAX_HAND_SIZE; i++)
 	{
 		cout << this->players[0][i] << " ";
 		cout << this->players[1][i] << "\n";
 	}
 
+	/* rest of the tiles are copied to the boneyard and then popped */
 	while(!this->boneyard.empty())
 	{
 		cout << this->boneyard.top() << "\n";

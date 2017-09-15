@@ -9,7 +9,7 @@ public:
 	Boneyard() {}
 	
 	// copy cstor
-	Boneyard(const stack<Tile> &ts);
+	Boneyard(const Boneyard &by);
 
 	// access to member stack tiles
 	Tile pop();

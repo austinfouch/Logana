@@ -11,17 +11,17 @@ public:
 	Player() : score(0) {}
 
 	// copy cstor
-	Player(const int &s, const Hand &h);
+	Player(const Player &p);
 
 	// implemented in human.cpp and computer.cpp
-	virtual void play();
+	virtual void play() {}
 
 	// will be implemented in player.cpp
 	void draw_tile(const Tile &t);
 
 	// access the member Hand hand
 	void push_back(const Tile &t);
-	Tile& operator[](const int index);
+	Tile& operator[](const int &index);
 private:
 	Hand hand;
 	int score;
