@@ -15,8 +15,8 @@ public:
 	Board(const Tile &eng, const vector<Tile> &left, const vector<Tile> &right);
 
 	// access to the sides of the board
-	void pushLeft(const Tile &t);
-	void pushRight(const Tile &t);
+	void push_left(const Tile &t);
+	void push_right(const Tile &t);
 
 	// assignment overload for copy cstor (serialization)
 	void operator=(const Board &b);

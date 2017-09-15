@@ -9,12 +9,12 @@ Board::Board(const Tile &eng, const vector<Tile> &left, const vector<Tile> &righ
 	this->rightSide = right;
 }
 
-void Board::pushLeft(const Tile &t)
+void Board::push_left(const Tile &t)
 {
 	this->leftSide.push_back(t);
 }
 
-void Board::pushRight(const Tile &t)
+void Board::push_right(const Tile &t)
 {
 	this->rightSide.push_back(t);
 }
