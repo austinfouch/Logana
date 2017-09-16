@@ -4,7 +4,7 @@
 #include "tile.h"
 #include "board.h"
 #include "player.h"
-#include <deque>
+#include <vector>
 #include <algorithm>
 
 #define MAX_PIPS 6
@@ -19,6 +19,8 @@ public:
 
 	// copy cstor
 	Round(const Round &r);
+
+	Round(vector<Player> &ps);
 	
 	// caller function
 	void run();
@@ -26,11 +28,8 @@ public:
 	// creates player objects and pushes them to players vector
 	void setup_players();
 
-	// creates tiles and shuffles them
-	vector<Tile> create_tiles();
-
 	// pop shuffled vector into players' hands and boneyard
-	void distribute_tiles(vector<Tile> &ts);
+	void distribute_tiles();
 private:
 	Boneyard boneyard;
 	Board board;

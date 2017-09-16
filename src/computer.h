@@ -6,6 +6,12 @@
 class Computer : public Player {
 public:
 	void play(Board &board);
+
+	Computer(const int &s, const string &n) : Player()
+	{
+		this->score = s;
+		this->name = n;
+	}
 };
 
 #endif

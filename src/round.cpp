@@ -13,12 +13,19 @@ Round::Round(const Round &r)
 	this->players = r.players;
 }
 
+Round::Round(vector<Player> &ps)
+{
+	this->players = ps;
+}
+
 /*
-	void createTiles(vector<Tile>)
+	void distributeTiles()
 		This function creates Tile objects until the fill MAX_PIPS by MAX_PIPS set is
 		complete, pushing the objects into a vector for easy random access (shuffling).
+		Then the created vector is distributed first to the players' hands and then to 
+		the boneyard.
 */
-vector<Tile> Round::create_tiles()
+void Round::distribute_tiles()
 {
 	// creates the tile objects 0-0 through 6-6 and pushes into the tileList
 	vector<Tile> tileList;
@@ -32,30 +39,24 @@ vector<Tile> Round::create_tiles()
 		}
 	}
 
-	return tileList;
-}
-
-/*
-	void distributeTiles(vector<Tile>)
-		This function randomly accesses elements within the passed and erases them until the 
-		vector is empty. This function will later have implementation to distrbiute tiles
-		the players' hands and boneyard. 
-*/
-void Round::distribute_tiles(vector<Tile> &tileList)
-{
 	random_shuffle(tileList.begin(), tileList.end());
+	
 	for(int i = 0; i < NUM_PLAYERS; i++)
 	{
+		cout << "Player " << i+1 << ": \n";
 		for(int j = 0; j < MAX_HAND_SIZE; j++)
 		{
 			this->players[i].push_back(tileList.back());
+			cout << tileList.back() << "\n";
 			tileList.pop_back();
 		}
 	}
 
+	cout << "Boneyard: \n";
 	while(!tileList.empty())
 	{
 		this->boneyard.push(tileList.back());
+		cout << tileList.back() << "\n";
 		tileList.pop_back();
 	}
 }
@@ -70,10 +71,8 @@ void Round::distribute_tiles(vector<Tile> &tileList)
 */
 void Round::setup_players()
 {
-	Player human;
-	Player computer;
-	this->players.push_back(human);
-	this->players.push_back(computer);
+	for(int i = 0; i < this->players.size(); i++)
+		this->players[i].clear_hand();
 }
 
 /*
@@ -84,20 +83,5 @@ void Round::setup_players()
 void Round::run()
 {	
 	setup_players();
-	vector<Tile> tileList = create_tiles();
-	distribute_tiles(tileList);
-
-	/* distributes to the player's hands. need to make it dynamic indexing instead of 0 and 1 */
-	for(int i = 0; i < MAX_HAND_SIZE; i++)
-	{
-		cout << this->players[0][i] << " ";
-		cout << this->players[1][i] << "\n";
-	}
-
-	/* rest of the tiles are copied to the boneyard and then popped */
-	while(!this->boneyard.empty())
-	{
-		cout << this->boneyard.top() << "\n";
-		this->boneyard.pop();
-	}
+	distribute_tiles();
 }
