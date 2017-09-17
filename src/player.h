@@ -25,7 +25,10 @@ public:
 	// will be implemented in player.cpp
 	void draw_tile(const Tile &t) { push_back(t); }
 
+	void add_score(const int &s) { this->score += s; }
+
 	// access the member Hand hand
+	int size() const { return this->hand.size(); }
 	void push_back(const Tile &t) { this->hand.push_back(t); }
 	Tile& operator[](const int &index) { this->hand[index]; }
 	friend ostream &operator<<(ostream& out, Player &p);

@@ -43,20 +43,16 @@ void Round::distribute_tiles()
 	
 	for(int i = 0; i < NUM_PLAYERS; i++)
 	{
-		cout << "Player " << i+1 << ": \n";
 		for(int j = 0; j < MAX_HAND_SIZE; j++)
 		{
 			this->players[i].push_back(tileList.back());
-			cout << tileList.back() << "\n";
 			tileList.pop_back();
 		}
 	}
 
-	cout << "Boneyard: \n";
 	while(!tileList.empty())
 	{
 		this->boneyard.push(tileList.back());
-		cout << tileList.back() << "\n";
 		tileList.pop_back();
 	}
 }
@@ -80,8 +76,12 @@ void Round::setup_players()
 **		Acts as a main function for the Round class, setting up the players, their hands, and
 **		the boneyard for the round. Need implementation for setting up the board as well.
 */
-void Round::run()
+vector<Player> Round::run()
 {	
 	setup_players();
 	distribute_tiles();
+
+	players[0].add_score(50);
+
+	return this->players;
 }

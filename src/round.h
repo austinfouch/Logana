@@ -23,7 +23,7 @@ public:
 	Round(vector<Player> &ps);
 	
 	// caller function
-	void run();
+	vector<Player> run();
 
 	// creates player objects and pushes them to players vector
 	void setup_players();
