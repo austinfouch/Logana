@@ -14,8 +14,6 @@ int main()
 	players.push_back(player1);
 	players.push_back(player2);
 
-	cout << players[0] << "\n";
-	Round r1(players);
-	players = r1.run();
-	cout << players[0] << "\n";
+	Round r1;
+	r1.run(players);
 }

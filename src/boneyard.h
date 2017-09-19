@@ -1,7 +1,8 @@
 #ifndef BONEYARD_H
 #define BONEYARD_H
 #include "tile.h"
-#include <stack>
+#include <vector>
+#include <iterator>
 
 class Boneyard {
 public:
@@ -12,15 +13,18 @@ public:
 	Boneyard(const Boneyard &by);
 
 	// access to member stack tiles
-	Tile pop();
-	Tile& top();
-	void push(const Tile &t);
+	void pop_back();
+	Tile& back();
+	void push_back(const Tile &t);
 	bool empty();
+	vector<Tile>::iterator begin() { return this->tiles.begin(); }
+	vector<Tile>::iterator end() { return this->tiles.end(); }
 
 	// assignment overloading
 	void operator=(const Boneyard &by);
+	friend ostream &operator<<(ostream& out, Boneyard &by);
 private:
-	stack<Tile> tiles;
+	vector<Tile> tiles;
 };
 
 #endif

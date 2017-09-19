@@ -10,12 +10,6 @@ Round::Round(const Round &r)
 {
 	this->boneyard = r.boneyard;
 	this->board = r.board;
-	this->players = r.players;
-}
-
-Round::Round(vector<Player> &ps)
-{
-	this->players = ps;
 }
 
 /*
@@ -25,7 +19,7 @@ Round::Round(vector<Player> &ps)
 		Then the created vector is distributed first to the players' hands and then to 
 		the boneyard.
 */
-void Round::distribute_tiles()
+void Round::distribute_tiles(vector<Player> &players)
 {
 	// creates the tile objects 0-0 through 6-6 and pushes into the tileList
 	vector<Tile> tileList;
@@ -41,18 +35,18 @@ void Round::distribute_tiles()
 
 	random_shuffle(tileList.begin(), tileList.end());
 	
-	for(int i = 0; i < NUM_PLAYERS; i++)
+	for(int i = 0; i < players.size(); i++)
 	{
 		for(int j = 0; j < MAX_HAND_SIZE; j++)
 		{
-			this->players[i].push_back(tileList.back());
+			players[i].push_back(tileList.back());
 			tileList.pop_back();
 		}
 	}
 
 	while(!tileList.empty())
 	{
-		this->boneyard.push(tileList.back());
+		this->boneyard.push_back(tileList.back());
 		tileList.pop_back();
 	}
 }
@@ -65,10 +59,10 @@ void Round::distribute_tiles()
 		be empty to start (used for new round) and a constructor that takes vector and score
 		(for serialization).
 */
-void Round::setup_players()
+void Round::setup_players(vector<Player> &players)
 {
-	for(int i = 0; i < this->players.size(); i++)
-		this->players[i].clear_hand();
+	for(int i = 0; i < players.size(); i++)
+		players[i].clear_hand();
 }
 
 /*
@@ -76,12 +70,8 @@ void Round::setup_players()
 **		Acts as a main function for the Round class, setting up the players, their hands, and
 **		the boneyard for the round. Need implementation for setting up the board as well.
 */
-vector<Player> Round::run()
+void Round::run(vector<Player> &players)
 {	
-	setup_players();
-	distribute_tiles();
-
-	players[0].add_score(50);
-
-	return this->players;
+	setup_players(players);
+	distribute_tiles(players);
 }

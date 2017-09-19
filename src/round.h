@@ -19,21 +19,21 @@ public:
 
 	// copy cstor
 	Round(const Round &r);
-
-	Round(vector<Player> &ps);
 	
 	// caller function
-	vector<Player> run();
+	void run(vector<Player> &players);
 
 	// creates player objects and pushes them to players vector
-	void setup_players();
+	void setup_players(vector<Player> &players);
+
+
 
 	// pop shuffled vector into players' hands and boneyard
-	void distribute_tiles();
+	void distribute_tiles(vector<Player> &players);
 private:
 	Boneyard boneyard;
 	Board board;
-	vector<Player> players;
+	Player * curr_player;
 };
 
 #endif

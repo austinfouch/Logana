@@ -17,29 +17,27 @@ Boneyard::Boneyard(const Boneyard &by)
 **		the value of the element after popping it from the stack.
 ** 
 */
-Tile Boneyard::pop()
+void Boneyard::pop_back()
 {
-	Tile tmp = this->tiles.top();
-	this->tiles.pop();
-	return tmp;
+	this->tiles.pop_back();
 }
 
 /*
 **	Tile& Boneyard::top()
 **		Returns reference to the top element of the member stack.	
 */
-Tile& Boneyard::top()
+Tile& Boneyard::back()
 {
-	return this->tiles.top();
+	return this->tiles.back();
 }
 
 /*
 **	void Boneyard::push(const Tile &t)
 **		This functions gives access to pushing elements onto the member stack.
 */
-void Boneyard::push(const Tile &t)
+void Boneyard::push_back(const Tile &t)
 {
-	this->tiles.push(t);
+	this->tiles.push_back(t);
 }
 
 /*
@@ -58,4 +56,12 @@ bool Boneyard::empty()
 void Boneyard::operator=(const Boneyard &by)
 {
 	this->tiles = by.tiles;
+}
+
+ostream &operator<<(ostream& out, Boneyard &by)
+{
+	cout << "Boneyard: ";
+	for(const auto &it : by)
+		cout << it << " ";
+	cout << "\n";
 }
