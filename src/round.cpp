@@ -74,4 +74,8 @@ void Round::run(vector<Player> &players)
 {	
 	setup_players(players);
 	distribute_tiles(players);
+	cout <<  this->boneyard;
+	for(auto const &it : players[0])
+		cout << it << " ";
+	cout << "\n";
 }

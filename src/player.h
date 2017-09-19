@@ -29,8 +29,15 @@ public:
 
 	// access the member Hand hand
 	int size() const { return this->hand.size(); }
+
 	void push_back(const Tile &t) { this->hand.push_back(t); }
+
 	Tile& operator[](const int &index) { this->hand[index]; }
+
+	vector<Tile>::iterator begin() { return this->hand.begin(); }
+
+	vector<Tile>::iterator end() { return this->hand.end(); }
+
 	friend ostream &operator<<(ostream& out, Player &p);
 
 protected:

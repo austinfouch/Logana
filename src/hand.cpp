@@ -17,10 +17,10 @@ Tile Hand::play_tile(const Tile &t)
 **	ostream &operator<<(ostream& out, const Hand &h)
 **		Overloaded ostream operator, prints tiles of the hand member to console.
 */
-ostream &operator<<(ostream& out, const Hand &h)
+ostream &operator<<(ostream& out, Hand &h)
 {
-	if(h.size() > 0)
-		for(int i = 0; i < h.size(); i++)
-			out << h.tiles[i] << " ";
-	out << "";
+	out << "Hand: ";
+	for(const auto &it : h)
+		out << it << " ";
+	out << "\n";
 }

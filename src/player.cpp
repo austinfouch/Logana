@@ -42,5 +42,5 @@ ostream &operator<<(ostream& out, Player &p)
 {
 	out << "Name: " << p.name << "\n";
 	out << "Score: " << p.score << "\n";
-	out << "Hand: " << p.hand;
+	out << p.hand;
 }
