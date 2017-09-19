@@ -21,6 +21,7 @@ Round::Round(const Round &r)
 */
 void Round::distribute_tiles(vector<Player> &players)
 {
+	srand(time(0));
 	// creates the tile objects 0-0 through 6-6 and pushes into the tileList
 	vector<Tile> tileList;
 	int leftPips, rightPips;
@@ -61,8 +62,20 @@ void Round::distribute_tiles(vector<Player> &players)
 */
 void Round::setup_players(vector<Player> &players)
 {
-	for(int i = 0; i < players.size(); i++)
-		players[i].clear_hand();
+	for(auto &p : players)
+		p.clear_hand();
+}
+
+/*
+** 	searches players' hands for the engine for this round
+*/
+void Round::find_engine(vector<Player> &players, const int &round_num)
+{
+	Tile eng(round_num, round_num);
+	for(auto &player : players)
+		for(auto &tile : player)
+			if(tile == eng)
+				cout << "Engine Found\n";
 }
 
 /*
@@ -70,12 +83,9 @@ void Round::setup_players(vector<Player> &players)
 **		Acts as a main function for the Round class, setting up the players, their hands, and
 **		the boneyard for the round. Need implementation for setting up the board as well.
 */
-void Round::run(vector<Player> &players)
+void Round::run(vector<Player> &players, const int &round_num)
 {	
 	setup_players(players);
 	distribute_tiles(players);
-	cout <<  this->boneyard;
-	for(auto const &it : players[0])
-		cout << it << " ";
-	cout << "\n";
+	find_engine(players, round_num);
 }

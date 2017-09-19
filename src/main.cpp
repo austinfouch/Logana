@@ -7,17 +7,24 @@ using namespace std;
 
 int main()
 {	
-	Human player1(100, "Austin");
-	Computer player2(150, "Computer");
+	string usr_name;
+	cout << "Enter Human player's name: ";
+	cin >> usr_name;
+	cout << "\n";
+	
+	Human player1(0, usr_name);
+	Computer player2(0, "Computer");
 
 	vector<Player> players;
 	players.push_back(player1);
 	players.push_back(player2);
 
-	cout << players[0];
+	for(auto &it : players)
+		cout << it << "\n";
 
 	Round r1;
-	r1.run(players);
+	r1.run(players, 6);
 
-	cout << players[0];
+	for(auto &it : players)
+		cout << it << "\n";
 }
