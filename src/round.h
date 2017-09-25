@@ -3,7 +3,8 @@
 #include "boneyard.h"
 #include "tile.h"
 #include "board.h"
-#include "player.h"
+#include "human.h"
+#include "computer.h"
 #include <vector>
 #include <algorithm>
 #include <cstdlib>

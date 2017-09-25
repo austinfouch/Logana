@@ -17,10 +17,13 @@ public:
 	Player(const int &s, const string &n);
 
 	// implemented in human.cpp and computer.cpp
-	virtual void play() {}
+	virtual void play() { cout << "Base player" << endl; }
+	virtual void test() { cout << "Player test" << endl; }
 
 	// will clear the hand of the player
 	void clear_hand();
+
+	void show_hand() { cout << this->name << "'s " << this->hand << "\n"; }
 
 	// will be implemented in player.cpp
 	void draw_tile(const Tile &t) { push_back(t); }

@@ -21,7 +21,6 @@ Round::Round(const Round &r)
 */
 void Round::distribute_tiles(vector<Player> &players)
 {
-	srand(time(0));
 	// creates the tile objects 0-0 through 6-6 and pushes into the tileList
 	vector<Tile> tileList;
 	int leftPips, rightPips;
@@ -34,6 +33,8 @@ void Round::distribute_tiles(vector<Player> &players)
 		}
 	}
 
+	// new RNG seed
+	srand(time(0));
 	random_shuffle(tileList.begin(), tileList.end());
 	
 	for(int i = 0; i < players.size(); i++)
@@ -88,4 +89,8 @@ void Round::run(vector<Player> &players, const int &round_num)
 	setup_players(players);
 	distribute_tiles(players);
 	find_engine(players, round_num);
+	this->curr_player = &players[0];
+	cout << *this->curr_player << endl;
+	this->curr_player++;
+	cout << *this->curr_player << endl;
 }
