@@ -28,8 +28,8 @@ int main()
 	players.push_back(make_unique<Human>(100, "Austin"));
 	players.push_back(make_unique<Computer>(50, "Computer"));
 	
-	for(auto &it : players)
-		it->test();
+	for(auto &player : players)
+		cout << *player << endl;
 
 	Round r1;
 	r1.run(players, 6);

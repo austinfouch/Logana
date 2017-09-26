@@ -19,7 +19,7 @@ Round::Round(const Round &r)
 		Then the created vector is distributed first to the players' hands and then to 
 		the boneyard.
 */
-void Round::distribute_tiles(vector<Player> &players)
+void Round::distribute_tiles(vector<unique_ptr<Player>> &players)
 {
 	// creates the tile objects 0-0 through 6-6 and pushes into the tileList
 	vector<Tile> tileList;
@@ -41,7 +41,8 @@ void Round::distribute_tiles(vector<Player> &players)
 	{
 		for(int j = 0; j < MAX_HAND_SIZE; j++)
 		{
-			players[i].push_back(tileList.back());
+			// need to use -> now because its accessing a vector of unique_ptr<Player>
+			players[i]->push_back(tileList.back());
 			tileList.pop_back();
 		}
 	}
@@ -84,13 +85,14 @@ void Round::find_engine(vector<Player> &players, const int &round_num)
 **		Acts as a main function for the Round class, setting up the players, their hands, and
 **		the boneyard for the round. Need implementation for setting up the board as well.
 */
-void Round::run(vector<Player> &players, const int &round_num)
+void Round::run(vector<unique_ptr<Player>> &players, const int &round_num)
 {	
+	/*
 	setup_players(players);
 	distribute_tiles(players);
 	find_engine(players, round_num);
-	this->curr_player = &players[0];
-	cout << *this->curr_player << endl;
-	this->curr_player++;
-	cout << *this->curr_player << endl;
+	*/
+	distribute_tiles(players);
+	for(auto &player : players)
+		player->play();
 }

@@ -7,9 +7,10 @@
 */
 void Human::play()
 {
+	int choice;
 	while(true)
 	{
-		int choice = get_input();
+		choice = get_input();
 		switch(choice)
 		{
 			case 1:
@@ -18,19 +19,19 @@ void Human::play()
 				continue;
 
 			case 2:
-				cout << "Viewing board..." << endl;
+				cout << "Viewing board..." << endl << endl;
 				continue;
 
 			case 3:
-				cout << "Playing tile..." << endl;
+				cout << "Playing tile..." << endl << endl;
 				break;
 
 			case 4:
-				cout << "Attempting to pass turn..." << endl;
+				cout << "Attempting to pass turn..." << endl << endl;
 				continue;
 
 			case 5:
-				cout << "Displaying help..." << endl;
+				cout << "Displaying help..." << endl << endl;
 				continue;
 		}
 	}
