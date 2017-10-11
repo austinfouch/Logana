@@ -52,9 +52,9 @@ ostream &operator<<(ostream& out, const Board &b)
 	for(int i = 0; i < b.leftSide.size(); i++)
 		out << b.leftSide[i] << " ";
 
-	out << "\n" << b.engine << "\n";
+	out << b.engine;
 
 	for(int i = 0; i < b.rightSide.size(); i++)
-		out << "|" << b.rightSide[i] << " ";
-	out << " R";
+		out << " " << b.rightSide[i];
+	out << " R" << endl << endl;
 }

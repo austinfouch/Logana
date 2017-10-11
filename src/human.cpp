@@ -5,7 +5,7 @@
 **		This function gives the human player the ability to play a tile if they have a legal
 **		move. If the human player has no legal moves, they must pass and drawTile.
 */
-void Human::play()
+void Human::play(Board &board, Boneyard &boneyard)
 {
 	int choice;
 	while(true)
@@ -20,6 +20,7 @@ void Human::play()
 
 			case 2:
 				cout << "Viewing board..." << endl << endl;
+				cout << board;
 				continue;
 
 			case 3:

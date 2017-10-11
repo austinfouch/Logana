@@ -21,6 +21,7 @@ Round::Round(const Round &r)
 */
 void Round::distribute_tiles(vector<unique_ptr<Player>> &players)
 {
+	cout << "Distributing tiles..." << endl;
 	// creates the tile objects 0-0 through 6-6 and pushes into the tileList
 	vector<Tile> tileList;
 	int leftPips, rightPips;
@@ -62,22 +63,54 @@ void Round::distribute_tiles(vector<unique_ptr<Player>> &players)
 		be empty to start (used for new round) and a constructor that takes vector and score
 		(for serialization).
 */
-void Round::setup_players(vector<Player> &players)
+void Round::setup_players(vector<unique_ptr<Player>> &players)
 {
+	cout << "Setuping up players for round..." << endl;
 	for(auto &p : players)
-		p.clear_hand();
+		p->clear_hand();
 }
 
 /*
 ** 	searches players' hands for the engine for this round
 */
-void Round::find_engine(vector<Player> &players, const int &round_num)
+void Round::find_engine(vector<unique_ptr<Player>> &players, const int &round_num)
 {
-	Tile eng(round_num, round_num);
-	for(auto &player : players)
-		for(auto &tile : player)
+	Tile eng(round_num, round_num);		// create temp engine
+	cout << "Locating round's engine (" << eng << ")..." << endl;
+	// loop over players
+	for(this->current_player = 0; 
+		this->current_player < players.size(); 
+		this->current_player++)
+	{	
+		// check player's hand for tile equal to the tmp engine
+		for(Tile &tile : *players[this->current_player])
+		{		
 			if(tile == eng)
-				cout << "Engine Found\n";
+			{
+				cout << "Engine (" << eng << ") found in ";
+				cout << players[this->current_player]->get_name(); 
+				cout << "'s hand." << endl << endl;
+				return;
+			}
+		}
+	}
+	cout << "Engine is in boneyard, players must draw..." << endl << endl;
+	this->current_player = 0;
+	Tile temp;	// holding value of boneyard's next drawable tile
+	while(!(temp == eng))
+	{
+		temp = this->boneyard.back();
+
+		cout << players[this->current_player]->get_name();
+		cout << " must draw from the boneyard..." << endl << endl;
+		
+		players[this->current_player]->draw_tile(temp);
+		this->boneyard.pop_back();
+		current_player = 1 - current_player;	// toggles between player 0 and 1
+	}
+
+	cout << players[this->current_player]->get_name() << " has the engine." << endl;
+	return;
 }
 
 /*
@@ -87,12 +120,11 @@ void Round::find_engine(vector<Player> &players, const int &round_num)
 */
 void Round::run(vector<unique_ptr<Player>> &players, const int &round_num)
 {	
-	/*
+	// NOTE: players is a vector of unique pointers of type Player. In order to access the
+	// individual players in the vector, you must derefence the elements of the vector (*).
 	setup_players(players);
 	distribute_tiles(players);
 	find_engine(players, round_num);
-	*/
-	distribute_tiles(players);
 	for(auto &player : players)
-		player->play();
+		player->play(this->board, this->boneyard);
 }

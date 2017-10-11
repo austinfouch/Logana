@@ -17,8 +17,7 @@ public:
 	Player(const int &s, const string &n);
 
 	// implemented in human.cpp and computer.cpp
-	virtual void play() { cout << "Base player" << endl; }
-	virtual void test() { cout << "Player test" << endl; }
+	virtual void play(Board &board, Boneyard &boneyard) {}
 
 	// will clear the hand of the player
 	void clear_hand();
@@ -34,6 +33,8 @@ public:
 	int size() const { return this->hand.size(); }
 
 	void push_back(const Tile &t) { this->hand.push_back(t); }
+
+	string get_name() { string tmp = this->name; return tmp; }
 
 	Tile& operator[](const int &index) { this->hand[index]; }
 

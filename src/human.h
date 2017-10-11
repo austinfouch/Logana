@@ -6,7 +6,7 @@
 
 class Human : public Player {
 public:
-	void play();
+	void play(Board &board, Boneyard &boneyard);
 	void test() { cout << "Human test" << endl; }
 	void help();
 	int get_input();

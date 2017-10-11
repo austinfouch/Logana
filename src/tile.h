@@ -7,7 +7,7 @@ using namespace std;
 class Tile {
 public:
 	// default cstor
-	Tile() : leftPips(0), rightPips(0) {}
+	Tile() : leftPips(-1), rightPips(-1) {}
 
 	// simple initialization cstor 
 	Tile(const int &lPips, const int &rPips);
