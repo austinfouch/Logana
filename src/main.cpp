@@ -15,22 +15,13 @@ int main()
 	cin >> usr_name;
 	cout << endl;
 
-	/*
-	Human human(100, "Austin");
-	Computer computer(50, "Computer");
-
-	vector<Player> players;
-	players.push_back(computer);
-	players.push_back(human);
-	*/
-
 	vector<unique_ptr<Player>> players;
-	players.push_back(make_unique<Human>(100, "Austin"));
-	players.push_back(make_unique<Computer>(50, "Computer"));
+	players.push_back(make_unique<Human>(0, usr_name));
+	players.push_back(make_unique<Computer>(0 , "Computer"));
 	
 	for(auto &player : players)
 		cout << *player << endl;
 
 	Round r1;
-	r1.run(players, 6);
+	r1.run(players, 1);
 }

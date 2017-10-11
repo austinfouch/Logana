@@ -21,9 +21,7 @@ public:
 	// assignment overload for copy cstor (serialization)
 	void operator=(const Board &b);
 
-	// displaying of the board to the user in the terminal --- will probably be moved
-	// to View class
-	friend ostream &operator<<(ostream& out, const Board &b);
+	friend ostream &operator<<(ostream& out, Board &b);
 private:
 	Tile engine;
 	vector<Tile> leftSide;

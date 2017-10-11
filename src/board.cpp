@@ -3,8 +3,8 @@
 using namespace std;
 
 /*
-**	Board::Board(const Board &b)
-**		Copy cstor.
+	Board::Board(const Board &b)
+		Copy cstor.
 */
 Board::Board(const Board &b)
 {
@@ -14,8 +14,8 @@ Board::Board(const Board &b)
 }
 
 /*
-**	void Board::push_left(const Tile &t)
-**		This function gives access to pushing back objects to the member stack leftSide.
+	void Board::push_left(const Tile &t)
+		This function gives access to pushing back objects to the member stack leftSide.
 */
 void Board::push_left(const Tile &t)
 {
@@ -23,8 +23,9 @@ void Board::push_left(const Tile &t)
 }
 
 /*
-**	void Board::push_right(const Tile &t)
-**		This function gives access to pushing back objects to the member stack righSide.
+	void Board::push_right(const Tile &t)
+		This function gives access to pushing back objects to the member stack
+		righSide.
 */
 void Board::push_right(const Tile &t)
 {
@@ -32,8 +33,8 @@ void Board::push_right(const Tile &t)
 }
 
 /*
-**	void Board::operator=(const Board &b)
-**		Overloaded assignment operator.
+	void Board::operator=(const Board &b)
+		Overloaded assignment operator.
 */
 void Board::operator=(const Board &b)
 {
@@ -43,16 +44,20 @@ void Board::operator=(const Board &b)
 }
 
 /*
-**	ostream &operator<<(ostream& out, const Board &b)
-**		Overloaded ostream operator. Will be moved to the BoardView class.
+	ostream &operator<<(ostream& out, const Board &b)
+		Overloaded ostream operator. Will be moved to the BoardView class.
 */
-ostream &operator<<(ostream& out, const Board &b)
+ostream &operator<<(ostream& out, Board &b)
 {
 	out << "L ";
 	for(int i = 0; i < b.leftSide.size(); i++)
 		out << b.leftSide[i] << " ";
 
-	out << b.engine;
+	Tile temp(-1, -1);
+	if(!(b.engine == temp))
+		out << b.engine;
+	else
+		cout << "(empty)";
 
 	for(int i = 0; i < b.rightSide.size(); i++)
 		out << " " << b.rightSide[i];

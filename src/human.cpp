@@ -2,8 +2,9 @@
 
 /*
 **	void Human::play(vector<Tile>&)
-**		This function gives the human player the ability to play a tile if they have a legal
-**		move. If the human player has no legal moves, they must pass and drawTile.
+**		This function gives the human player the ability to play a tile if they 
+**		have a legal move. If the human player has no legal moves, they must 
+**		pass and draw a tile.
 */
 void Human::play(Board &board, Boneyard &boneyard)
 {
@@ -25,10 +26,14 @@ void Human::play(Board &board, Boneyard &boneyard)
 
 			case 3:
 				cout << "Playing tile..." << endl << endl;
+
 				break;
 
 			case 4:
 				cout << "Attempting to pass turn..." << endl << endl;
+				// call help which will return the tile for the best play
+				// if help returns a tile of -1--1, then pass turn
+				// otherwise, tell player that there is a possible turn
 				continue;
 
 			case 5:
@@ -41,7 +46,6 @@ void Human::play(Board &board, Boneyard &boneyard)
 int Human::get_input()
 {
 	int choice = 0;
-	cout << this->name << "'s turn:" << endl;
 	cout << "1 - Show hand" << endl;
 	cout << "2 - Show board" << endl;
 	cout << "3 - Play tile" << endl;

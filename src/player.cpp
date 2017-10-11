@@ -3,8 +3,8 @@
 using namespace std;
 
 /*
-** 	Player::Player(const Player &p)
-**		Copy constructor	
+	Player::Player(const Player &p)
+		Copy constructor	
 */
 Player::Player(const Player &p)
 {
@@ -14,8 +14,8 @@ Player::Player(const Player &p)
 }
 
 /*
-** 	Player::Player(const Player &p)
-**		Copy constructor	
+	Player::Player(const Player &p)
+		Copy constructor	
 */
 Player::Player(const int &s, const string &n)
 {
@@ -24,9 +24,8 @@ Player::Player(const int &s, const string &n)
 }
 
 /*
-**	void Player::drawTile()
-**		This function pops an tile from the boneyard stack and adds the tile to the calling
-**		player's hand.
+	void Player::drawTile()
+		This function pops an tile from the boneyard stack and adds the tile to the calling player's hand.
 */
 void Player::clear_hand()
 {
@@ -35,8 +34,8 @@ void Player::clear_hand()
 }
 
 /*
-**	ostream &operator<<(ostream& out, const Player &p)
-**		Overloaded ostream operator, prints hand and score of the player
+	ostream &operator<<(ostream& out, const Player &p)
+		Overloaded ostream operator, prints hand and score of the player
 */
 ostream &operator<<(ostream& out, Player &p)
 {

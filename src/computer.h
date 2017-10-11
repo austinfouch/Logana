@@ -5,8 +5,10 @@
 
 class Computer : public Player {
 public:
-	void play() { cout << this->name << " play" << endl; }
-	void test() { cout << "Computer test" << endl; }
+	void play(Board &board, Boneyard &boneyard) 
+	{ 
+		cout << "uhh" << endl << endl;
+	}
 
 	Computer(const int &s, const string &n) : Player()
 	{

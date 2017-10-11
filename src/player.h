@@ -22,7 +22,7 @@ public:
 	// will clear the hand of the player
 	void clear_hand();
 
-	void show_hand() { cout << this->name << "'s " << this->hand << "\n"; }
+	void show_hand() { cout << this->name << "'s " << this->hand << endl; }
 
 	// will be implemented in player.cpp
 	void draw_tile(const Tile &t) { push_back(t); }
@@ -32,9 +32,11 @@ public:
 	// access the member Hand hand
 	int size() const { return this->hand.size(); }
 
+	bool empty() { return this->hand.empty(); }
+
 	void push_back(const Tile &t) { this->hand.push_back(t); }
 
-	string get_name() { string tmp = this->name; return tmp; }
+	const string get_name() { return this->name; }
 
 	Tile& operator[](const int &index) { this->hand[index]; }
 
