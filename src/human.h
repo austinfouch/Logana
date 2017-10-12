@@ -6,8 +6,8 @@
 
 class Human : public Player {
 public:
-	void play(Board &board, Boneyard &boneyard);
-	void test() { cout << "Human test" << endl; }
+	Turn play(Board &board, Boneyard &boneyard, Turn &lastTurn);
+
 	void help();
 	int get_input();
 

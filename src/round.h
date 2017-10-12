@@ -5,6 +5,7 @@
 #include "board.h"
 #include "human.h"
 #include "computer.h"
+#include "turn.h"
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
@@ -18,7 +19,7 @@
 class Round {
 public:
 	// default cstor
-	Round() : currPlayer(0) {}
+	Round();
 
 	// copy cstor
 	Round(const Round &r);
@@ -37,6 +38,7 @@ private:
 	Boneyard boneyard;
 	Board board;
 	int currPlayer;
+	Turn lastTurn;
 };
 
 #endif

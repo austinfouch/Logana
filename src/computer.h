@@ -5,9 +5,13 @@
 
 class Computer : public Player {
 public:
-	void play(Board &board, Boneyard &boneyard) 
+	Turn play(Board &board, Boneyard &boneyard, Turn &lastTurn) 
 	{ 
-		cout << "uhh" << endl << endl;
+		Turn turn;
+		turn.wasPassed = false;
+		turn.sidePlayed = 'C';
+		turn.tilePlayed = Tile(-1, -1);
+		return turn;
 	}
 
 	Computer(const int &s, const string &n) : Player()

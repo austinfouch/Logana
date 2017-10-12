@@ -6,7 +6,7 @@
 **		have a legal move. If the human player has no legal moves, they must 
 **		pass and draw a tile.
 */
-void Human::play(Board &board, Boneyard &boneyard)
+Turn Human::play(Board &board, Boneyard &boneyard, Turn &lastTurn)
 {
 	int choice;
 	while(true)
@@ -41,6 +41,12 @@ void Human::play(Board &board, Boneyard &boneyard)
 				continue;
 		}
 	}
+
+	Turn turn;
+	turn.wasPassed = false;
+	turn.sidePlayed = 'H';
+	turn.tilePlayed = Tile(-1, -1);
+	return turn;
 }
 
 int Human::get_input()

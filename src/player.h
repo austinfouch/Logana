@@ -2,6 +2,7 @@
 #define PLAYER_H
 #include <vector>
 #include <string>
+#include "turn.h"
 #include "board.h"
 #include "hand.h"
 #include "boneyard.h"
@@ -17,7 +18,7 @@ public:
 	Player(const int &s, const string &n);
 
 	// implemented in human.cpp and computer.cpp
-	virtual void play(Board &board, Boneyard &boneyard) {}
+	virtual Turn play(Board &board, Boneyard &boneyard, Turn &lastTurn) {}
 
 	// will clear the hand of the player
 	void clear_hand();
