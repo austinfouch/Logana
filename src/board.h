@@ -26,7 +26,6 @@ public:
 
 	void display_board();
 
-	friend ostream &operator<<(ostream& out, Board &b);
 private:
 	Tile engine;
 	vector<Tile> leftSide;

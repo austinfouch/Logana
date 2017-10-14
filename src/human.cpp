@@ -20,8 +20,8 @@ Turn Human::play(Board &board, Boneyard &boneyard, Turn &lastTurn)
 				continue;
 
 			case 2:
-				cout << "Viewing board..." << endl << endl;
-				cout << board;
+				cout << "Viewing board..." << endl;
+				board.display_board();
 				continue;
 
 			case 3:

@@ -43,27 +43,6 @@ void Board::operator=(const Board &b)
 	this->rightSide = b.rightSide;
 }
 
-/*
-	ostream &operator<<(ostream& out, const Board &b)
-		Overloaded ostream operator. Will be moved to the BoardView class.
-*/
-ostream &operator<<(ostream& out, Board &b)
-{
-	out << "L ";
-	for(int i = 0; i < b.leftSide.size(); i++)
-		out << b.leftSide[i] << " ";
-
-	Tile temp(-1, -1);
-	if(!(b.engine == temp))
-		out << b.engine;
-	else
-		cout << "(empty)";
-
-	for(int i = 0; i < b.rightSide.size(); i++)
-		out << " " << b.rightSide[i];
-	out << " R" << endl << endl;
-}
-
 void Board::display_board()
 {
 	ostringstream firstLine, secondLine;
@@ -84,8 +63,17 @@ void Board::display_board()
 		}
 	}
 
-	firstLine << this->engine.get_leftPips() << " ";
-	secondLine << "| ";
+	Tile tmp(-1, -1);
+	if(this->engine == tmp)
+	{
+		secondLine << "(empty) ";
+	}
+	else
+	{
+
+		firstLine << this->engine.get_leftPips() << " ";
+		secondLine << "| ";
+	}
 
 	for(Tile &tile : this->rightSide)
 	{
@@ -101,7 +89,7 @@ void Board::display_board()
 		}
 	}
 
-	secondLine << " R";
+	secondLine << "R";
 
 	string first = firstLine.str();
 	string second = secondLine.str();
