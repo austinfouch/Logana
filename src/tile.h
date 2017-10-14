@@ -18,6 +18,10 @@ public:
 	// swaps leftPips and rightPips value
 	void swap_pips();
 
+	//
+	bool is_double() { return this->leftPips == this-> rightPips; }
+
+	int get_leftPips() const { return this->leftPips; }
 	// overloading
 	void operator=(const Tile &t);
 	bool operator==(const Tile &t);

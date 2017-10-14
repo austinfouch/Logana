@@ -63,3 +63,49 @@ ostream &operator<<(ostream& out, Board &b)
 		out << " " << b.rightSide[i];
 	out << " R" << endl << endl;
 }
+
+void Board::display_board()
+{
+	ostringstream firstLine, secondLine;
+
+	firstLine << "  ";
+	secondLine << "L ";
+	for(Tile &tile : this->leftSide)
+	{
+		if(tile.is_double())
+		{
+			firstLine << tile.get_leftPips() << " ";
+			secondLine << "| ";
+		}
+		else
+		{
+			secondLine << tile << " ";
+			firstLine << "    ";
+		}
+	}
+
+	firstLine << this->engine.get_leftPips() << " ";
+	secondLine << "| ";
+
+	for(Tile &tile : this->rightSide)
+	{
+		if(tile.is_double())
+		{
+			firstLine << tile.get_leftPips() << " ";
+			secondLine << "| ";
+		}
+		else
+		{
+			secondLine << tile << " ";
+			firstLine << "    ";
+		}
+	}
+
+	secondLine << " R";
+
+	string first = firstLine.str();
+	string second = secondLine.str();
+	cout << first << endl;
+	cout << second << endl;
+	cout << first << endl;
+}

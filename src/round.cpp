@@ -147,7 +147,9 @@ void Round::run(vector<unique_ptr<Player>> &players, const int &round)
 	setup_players(players);
 	distribute_tiles(players);
 	find_engine(players, round);
-	int testcount = 0;
+
+	// toggle current player, calling play, until a hand is empty
+	int testcount = 0;	// for testing while play() doesnt do much
 	while(!players[this->currPlayer]->empty())
 	{
 		cout << players[this->currPlayer]->get_name() << "'s turn:" << endl;

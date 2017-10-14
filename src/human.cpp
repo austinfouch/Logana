@@ -25,8 +25,8 @@ Turn Human::play(Board &board, Boneyard &boneyard, Turn &lastTurn)
 				continue;
 
 			case 3:
+				
 				cout << "Playing tile..." << endl << endl;
-
 				break;
 
 			case 4:
