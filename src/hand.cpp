@@ -2,25 +2,35 @@
 
 using namespace std;
 
-/*
-**	Tile Hand::remove(const Tile &t)
-**		This function will search for tile in member tiles that is equal to the input object.
-**		If no equal object is found in the member tiles, then the action will be cancelled and
-**		handled.
-*/
-Tile Hand::play_tile(const Tile &t)
+void Hand::erase_tile(const int &index)
 {
-	//
+	this->tiles.erase(this->tiles.begin() + index);
 }
 
-/*
-**	ostream &operator<<(ostream& out, const Hand &h)
-**		Overloaded ostream operator, prints tiles of the hand member to console.
-*/
-ostream &operator<<(ostream& out, Hand &h)
+ostream &operator<<(ostream& out, Hand &hand)
 {
-	out << "Hand: ";
-	for(const auto &it : h)
-		out << it << " ";
-	out << "\n";
+	out << "Hand: " << endl;
+	if(hand.empty())
+	{
+		cout << "(empty)";
+	}
+	else
+	{
+		ostringstream tileStream, idxStream;
+		string tiles, idxs;
+		int i = 1;
+		for(Tile &tile : hand)
+		{
+			tileStream << tile << " ";
+			idxStream << "(" << i << ")";
+			if(i < 9)
+				idxStream << " ";
+			tiles = tileStream.str();
+			idxs = idxStream.str();
+			i++;
+		}
+		out << "\tIndicies:\t" << idxs << endl;
+		out << "\tTiles:\t\t" << tiles << endl;
+	}
+	cout << endl;
 }

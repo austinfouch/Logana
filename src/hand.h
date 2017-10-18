@@ -3,6 +3,7 @@
 #include "tile.h"
 #include <vector>
 #include <algorithm>
+#include <sstream>
 
 class Hand {
 public:
@@ -25,15 +26,13 @@ public:
 
 	vector<Tile>::iterator end() { return this->tiles.end(); }
 
-	// will return a copy of the passed tile (if it exists in the hand), and pop the tile
-	Tile play_tile(const Tile &t);
+	void erase_tile(const int &index);
 	
 	// overloading operators
 	void operator=(const Hand &h) { this->tiles = h.tiles; }
 	
-	Tile &operator[](const int index) { return this->tiles[index]; }
+	Tile &operator[](const int &index) { return this->tiles[index]; }
 
-	
 	friend ostream &operator<<(ostream& out, Hand &h);
 
 private:

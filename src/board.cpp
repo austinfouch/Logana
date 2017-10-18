@@ -43,57 +43,13 @@ void Board::operator=(const Board &b)
 	this->rightSide = b.rightSide;
 }
 
-void Board::display_board()
+void Board::clear_board()
 {
-	ostringstream firstLine, secondLine;
+	while(!this->leftSide.empty())
+		this->leftSide.pop_back();
 
-	firstLine << "  ";
-	secondLine << "L ";
-	for(Tile &tile : this->leftSide)
-	{
-		if(tile.is_double())
-		{
-			firstLine << tile.get_leftPips() << " ";
-			secondLine << "| ";
-		}
-		else
-		{
-			secondLine << tile << " ";
-			firstLine << "    ";
-		}
-	}
+	while(!this->rightSide.empty())
+		this->rightSide.pop_back();
 
-	Tile tmp(-1, -1);
-	if(this->engine == tmp)
-	{
-		secondLine << "(empty) ";
-	}
-	else
-	{
-
-		firstLine << this->engine.get_leftPips() << " ";
-		secondLine << "| ";
-	}
-
-	for(Tile &tile : this->rightSide)
-	{
-		if(tile.is_double())
-		{
-			firstLine << tile.get_leftPips() << " ";
-			secondLine << "| ";
-		}
-		else
-		{
-			secondLine << tile << " ";
-			firstLine << "    ";
-		}
-	}
-
-	secondLine << "R";
-
-	string first = firstLine.str();
-	string second = secondLine.str();
-	cout << first << endl;
-	cout << second << endl;
-	cout << first << endl;
+	this->engine = Tile(-1, -1);
 }

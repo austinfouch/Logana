@@ -1,0 +1,20 @@
+Tournament Score: 10
+Round No.: 1
+
+Computer: 
+   Hand: 0-3 2-6 5-5 0-6 2-4 0-1 0-0 
+   Score: 0
+
+Human: 
+   Hand: 0-5 3-4 3-5 1-2 1-3 3-3 
+   Score: 0
+
+Layout: 
+  L 4-6 6-6 6-3 R
+
+Boneyard: 
+2-2 4-4 2-5 5-6 0-4 1-4 2-3 1-1 0-2 1-6 4-5 1-5 
+
+Previous Player Passed: No
+
+Next Player: Computer

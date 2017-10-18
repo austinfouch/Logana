@@ -28,12 +28,10 @@ Tile::Tile(const Tile &t)
 */
 void Tile::swap_pips()
 {
-	cout << "Tile's pips were swapped: " << this->leftPips << "-" << this->rightPips;
 	int tmp;
 	tmp = this->leftPips;
 	this->leftPips = this->rightPips;
 	this->rightPips = tmp;
-	cout << " -> " << this->leftPips << "-" << this->rightPips << "\n";
 }
 
 /*

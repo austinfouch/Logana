@@ -9,7 +9,7 @@ using namespace std;
 Round::Round()
 {
 	this->currPlayer = 0;
-	this->lastTurn.sidePlayed = '0';
+	this->lastTurn.sidePlayed = "None";
 	this->lastTurn.wasPassed = false;
 }
 
@@ -113,25 +113,37 @@ void Round::find_engine(vector<unique_ptr<Player>> &players, const int &round)
 	// If eng not found, toggle currPlayer and draw a tile until engine found
 	cout << "Engine is in boneyard, players must draw..." << endl << endl;
 	this->currPlayer = 0;
-	Tile temp;
-	while(!(temp == eng))
+	Tile temp0, temp1;
+	while(true)
 	{
-		temp = this->boneyard.back();
+		temp0 = this->boneyard.back();
+		cout << players[0]->get_name();
+		players[0]->draw_tile(temp0);
+		cout << " must draw from the boneyard..." << temp0;
+		cout << " was drawn." << endl;
+		this->boneyard.pop_back();
 
-		cout << players[this->currPlayer]->get_name();
-		cout << " must draw from the boneyard..." << endl;
-		
-		players[this->currPlayer]->draw_tile(temp);
+		temp1 = this->boneyard.back();
+		cout << players[1]->get_name();
+		players[1]->draw_tile(temp1);
+		cout << " must draw from the boneyard..." << temp1;
+		cout << " was drawn." << endl;
 		this->boneyard.pop_back();
 		// return if player drew the engine, currPlayer is already this player
-		if(temp == eng)
+		if(temp0 == eng)
 		{	
-			cout << players[this->currPlayer]->get_name();
+			cout << players[0]->get_name();
 			cout << " has the engine" << endl << endl;
+			this->currPlayer = 0;
 			return;
 		}
-		// otherwise toggle -- only works for 2 player games
-		this->currPlayer = 1 - this->currPlayer;
+		else if(temp1 == eng)
+		{
+			cout << players[1]->get_name();
+			cout << " has the engine" << endl << endl;
+			this->currPlayer = 1;
+			return;
+		}
 	}
 }
 
@@ -141,38 +153,226 @@ void Round::find_engine(vector<unique_ptr<Player>> &players, const int &round)
 		their hands, and the boneyard for the round. Need implementation for 
 		setting up the board as well.
 */
-void Round::run(vector<unique_ptr<Player>> &players, const int &round)
+void Round::run(vector<unique_ptr<Player>> &players, int &round, 
+							int &score, bool isSerialized)
 {	
+	Tile temp(-1, -1);
 	cout << "Starting round " << round << endl << endl;
-	setup_players(players);
-	distribute_tiles(players);
-	find_engine(players, round);
+	if(isSerialized && (this->board.get_engine() == temp))
+	{
+		find_engine(players, round);
+		this->lastTurn.tilePlayed = Tile(MAX_ROUNDS - round, MAX_ROUNDS - round);
+	}
+	else if(!isSerialized)
+	{	
+		setup_players(players);
+		setup_board();
+		distribute_tiles(players);
+		find_engine(players, round);
+		this->lastTurn.tilePlayed = Tile(MAX_ROUNDS - round, MAX_ROUNDS - round);
+	}
 
 	// toggle current player, calling play, until a hand is empty
-	int testcount = 0;	// for testing while play() doesnt do much
-	while(!players[this->currPlayer]->empty())
+	// for testing while play() doesnt do much
+	bool doublePassed = false;
+	while(true)
 	{
-		cout << players[this->currPlayer]->get_name() << "'s turn:" << endl;
-		this->lastTurn = players[this->currPlayer]->play(this->board,
-		 												this->boneyard,
-		 												this->lastTurn);
-		cout << "\tTurn summary: ";
+		BoardView bv;
+		string choice, tmp;
+		cout << "Serialize current game? (Y/N): ";
+		while(getline(cin, tmp))
+		{
+			stringstream ss(tmp);
+			ss >> choice;
+			if(choice == "Y")
+				serialize(board, players, round, boneyard, lastTurn, currPlayer, score);
+			else if(choice == "N")
+				break;
+			else
+				cout << "Invalid input. Please input 'Y' to serialize or 'N' continue: ";
+		}
+		if(this->lastTurn.wasPassed)
+			doublePassed = true;
+		else
+			doublePassed = false;
+
+		this->lastTurn = players[this->currPlayer]->play(
+																									this->board,
+		 																							this->boneyard,
+		 																							this->lastTurn);
+		if(this->lastTurn.wasPassed)
+		{	
+			if(doublePassed)
+			{
+				tally_score(players);
+				return;
+			}
+		}
+
+		cout << "Last turn: ";
 		if(this->lastTurn.wasPassed)
 		{
-			cout << " Passed";
+			cout << " passed." << endl;
 		}
 		else
 		{
-			cout << "Tile " << this->lastTurn.tilePlayed;
-			cout << " was played on side " << this->lastTurn.sidePlayed;
+			cout << this->lastTurn.tilePlayed << " on ";
+			cout << this->lastTurn.sidePlayed << endl;
 		}
 
-		cout << endl << endl;
-		this->currPlayer = 1 - this->currPlayer;
-
-		if(testcount > 2)
+		bv.display_board(board);
+		cout << "Boneyard:" << endl;
+		cout << this->boneyard;
+		
+		if(players[currPlayer]->empty())
+		{
+			tally_score(players, currPlayer);
 			return;
-		else
-			testcount++;
+		}
+		this->currPlayer = 1 - this->currPlayer;
+		cout << endl;
 	}
+} 
+
+void Round::tally_score(vector<unique_ptr<Player>> &players, const int& winner)
+{
+	int tempLeftPips;
+	int tempRightPips;
+	int scoreSum = 0;
+	int loser = 1 - winner;
+	for(Tile &tile : *players[loser])
+	{
+		tempLeftPips = tile.get_leftPips();
+		tempRightPips = tile.get_rightPips();
+		scoreSum += tempRightPips + tempLeftPips;
+	}
+
+	players[winner]->add_score(scoreSum);
+	cout << players[winner]->get_name() << "'s hand is empty. They have won the ";
+	cout << "round with a score of ";
+	cout << scoreSum << "!" << endl;
+}
+
+void Round::tally_score(vector<unique_ptr<Player>> &players)
+{
+	int score0 = 0;
+	int score1 = 0;
+	int scoreSum;
+	for(Tile &tile : *players[0])
+	{
+		score0 += tile.get_leftPips() + tile.get_rightPips();
+	}
+	for(Tile &tile : *players[1])
+	{
+		score1 += tile.get_leftPips() + tile.get_rightPips();
+	}
+
+	int winner;
+	if(score0 > score1)
+	{
+		winner = 1;
+		scoreSum = score0;
+	}
+	else if(score1 > score0)
+	{
+		winner = 0;
+		scoreSum = score1;
+	}
+	else
+	{
+		cout << "It's a draw!" << endl;
+		return;
+	}
+
+	players[winner]->add_score(scoreSum);
+	cout << "Both players passed back-to-back. ";
+	cout << players[winner]->get_name() << " has won the round with a score of ";
+	cout << scoreSum << "!" << endl;
+}
+
+void Round::setup_board()
+{
+	this->board.clear_board();
+	this->boneyard.clear();
+}
+
+void Round::serialize(Board &board, vector<unique_ptr<Player>> &players, 
+										int &round,Boneyard &boneyard, Turn &lastTurn, 
+										int &currPlayer, int &score)
+{
+	// open save.txt using truncate
+	ofstream out ("serialize.txt", std::ofstream::trunc);
+	// Tournament
+	out << "Tournament Score: " << score << endl;
+	cout << endl;
+	out << "Round No.: " << round << endl << endl;
+	// Computer
+	out << "Computer: " << endl;
+	out << "   Hand: ";
+	for(Tile &tile : *players[0])
+		out << tile << " ";
+	out <<  endl;
+	out << "   Score: " << players[0]->get_score() << endl;
+	out << endl;
+	// Human
+	out << "Human: " << endl;
+	out << "   Hand: ";
+	for(Tile &tile : *players[1])
+		out << tile << " ";
+	out <<  endl;
+	out << "   Score: " << players[1]->get_score() << endl;
+	out << endl;
+	// Board
+	BoardView bv;
+	out << "Layout: " << endl;
+	out << "  L ";
+	for(Tile &tile : board.get_leftSide())
+		out << tile << " ";
+	Tile temp(-1, -1);
+	if(board.get_engine() == temp)
+		out << " ";
+	else
+		out << board.get_engine() << " ";
+	for(Tile &tile : board.get_rightSide())
+		out << tile << " ";
+	out << "R" << endl;
+	out << endl;
+	out << "Boneyard: " << endl;
+	out << boneyard << endl;
+	// Last Turn
+	out << "Previous Player Passed: ";
+	if (lastTurn.wasPassed)
+		out << "Yes" << endl;
+	else
+		out << "No" << endl;
+	out << endl;
+	// Curr Player
+	out << "Next Player: ";
+	if(currPlayer == 0)
+		out << "Computer" << endl;
+	if(currPlayer == 1)
+		out << "Human" << endl;
+	// write out to file
+	// close file
+	out.close();
+	cout << "Serialization has been written to serialize.txt" << endl;
+	// exit program
+	exit(0);
+}
+
+void Round::set_board(const Board &board)
+{
+	this->board = board;
+}
+void Round::set_boneyard(const Boneyard &boneyard)
+{
+	this->boneyard = boneyard;
+}
+void Round::set_wasPassed(const bool &wasPassed)
+{
+	this->lastTurn.wasPassed = wasPassed;
+}
+void Round::set_currPlayer(const int &currPlayer)
+{
+	this->currPlayer = currPlayer;
 }

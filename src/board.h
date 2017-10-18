@@ -19,13 +19,15 @@ public:
 	// access to the sides of the board
 	void push_left(const Tile &t);
 	void push_right(const Tile &t);
-	void set_eng(const Tile &t) { this->engine = t; }
+	void set_engine(const Tile &t) { this->engine = t; }
+
+	void clear_board();
+	vector<Tile> get_leftSide() { return this->leftSide; }
+	vector<Tile> get_rightSide() { return this->rightSide; }
+	Tile get_engine() { return this->engine; }
 
 	// assignment overload for copy cstor (serialization)
 	void operator=(const Board &b);
-
-	void display_board();
-
 private:
 	Tile engine;
 	vector<Tile> leftSide;

@@ -15,6 +15,8 @@ public:
 	// access to member stack tiles
 	void pop_back() { this->tiles.pop_back(); }
 
+	void clear();
+
 	Tile& back() { return this->tiles.back(); }
 
 	void push_back(const Tile &t) { this->tiles.push_back(t); }

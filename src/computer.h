@@ -5,14 +5,7 @@
 
 class Computer : public Player {
 public:
-	Turn play(Board &board, Boneyard &boneyard, Turn &lastTurn) 
-	{ 
-		Turn turn;
-		turn.wasPassed = false;
-		turn.sidePlayed = 'C';
-		turn.tilePlayed = Tile(-1, -1);
-		return turn;
-	}
+	Turn play(Board &board, Boneyard &boneyard, Turn &lastTurn);
 
 	Computer(const int &s, const string &n) : Player()
 	{
