@@ -1,3 +1,9 @@
+/******************************************************************************
+* Name: Austin Fouch
+* Project: 1 Longana
+* Class: CMPS 366 OPL
+* Date: 10/18/2017
+******************************************************************************/
 #include "computer.h"
 
 Turn Computer::play(Board &board, Boneyard &boneyard, Turn &lastTurn)

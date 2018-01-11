@@ -1,11 +1,13 @@
+/******************************************************************************
+* Name: Austin Fouch
+* Project: 1 Longana
+* Class: CMPS 366 OPL
+* Date: 10/18/2017
+******************************************************************************/
 #include "round.h"
 
 using namespace std;
 
-/*
-	Round::Round()
-		default cstor
-*/
 Round::Round()
 {
 	this->currPlayer = 0;
@@ -13,23 +15,12 @@ Round::Round()
 	this->lastTurn.wasPassed = false;
 }
 
-/*
-	Round::Round(const Round &r)
-		Copy cstor.
-*/
 Round::Round(const Round &r)
 {
 	this->boneyard = r.boneyard;
 	this->board = r.board;
 }
 
-/*
-	void distributeTiles()
-		This function creates Tile objects until the fill MAX_PIPS by MAX_PIPS 
-		set is complete, pushing the objects into a vector for easy random
-		access (shuffling). Then the created vector is distributed first to the
-		players' hands and then to the boneyard.
-*/
 void Round::distribute_tiles(vector<unique_ptr<Player>> &players)
 {
 	cout << "Distributing tiles...";
@@ -68,14 +59,6 @@ void Round::distribute_tiles(vector<unique_ptr<Player>> &players)
 	}
 }
 
-/*
-	void Round::setup_players()
-		This function creates two player objects and pushes them into the member
-		vector of Player type. For serialization and tournament purposes, the 
-		Player class should allow for constructor of a Player object given just 
-		the score as the vector hand will be empty to start (used for new round)
-		 and a constructor that takes vector and score (for serialization).
-*/
 void Round::setup_players(vector<unique_ptr<Player>> &players)
 {
 	cout << "Setuping up players...";
@@ -83,11 +66,6 @@ void Round::setup_players(vector<unique_ptr<Player>> &players)
 		p->clear_hand();
 }
 
-/*
-	void Round::find_engine()
- 		Searches player's hands for engine. If not found, players are forced to
- 		 draw tiles from the boneyard until a player draws the valid engine.
-*/
 void Round::find_engine(vector<unique_ptr<Player>> &players, const int &round)
 {
 	// create temp engine based on round loop over player's unntil its found
@@ -147,12 +125,6 @@ void Round::find_engine(vector<unique_ptr<Player>> &players, const int &round)
 	}
 }
 
-/*
-	void Round::run()
-		Acts as a main function for the Round class, setting up the players, 
-		their hands, and the boneyard for the round. Need implementation for 
-		setting up the board as well.
-*/
 void Round::run(vector<unique_ptr<Player>> &players, int &round, 
 							int &score, bool isSerialized)
 {	
@@ -196,10 +168,7 @@ void Round::run(vector<unique_ptr<Player>> &players, int &round,
 		else
 			doublePassed = false;
 
-		this->lastTurn = players[this->currPlayer]->play(
-																									this->board,
-		 																							this->boneyard,
-		 																							this->lastTurn);
+		this->lastTurn = players[this->currPlayer]->play(this->board, this->boneyard, this->lastTurn);
 		if(this->lastTurn.wasPassed)
 		{	
 			if(doublePassed)

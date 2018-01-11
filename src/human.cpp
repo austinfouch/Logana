@@ -1,11 +1,11 @@
+/******************************************************************************
+* Name: Austin Fouch
+* Project: 1 Longana
+* Class: CMPS 366 OPL
+* Date: 10/18/2017
+******************************************************************************/
 #include "human.h"
 
-/*
-**	void Human::play(vector<Tile>&)
-**		This function gives the human player the ability to play a tile if they 
-**		have a legal move. If the human player has no legal moves, they must 
-**		pass and draw a tile.
-*/
 Turn Human::play(Board &board, Boneyard &boneyard, Turn &lastTurn)
 {
 	int choice;

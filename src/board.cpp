@@ -1,11 +1,13 @@
+/******************************************************************************
+* Name: Austin Fouch
+* Project: 1 Longana
+* Class: CMPS 366 OPL
+* Date: 10/18/2017
+******************************************************************************/
 #include "board.h"
 
 using namespace std;
 
-/*
-	Board::Board(const Board &b)
-		Copy cstor.
-*/
 Board::Board(const Board &b)
 {
 	this->engine = b.engine;
@@ -13,29 +15,16 @@ Board::Board(const Board &b)
 	this->rightSide = b.rightSide;
 }
 
-/*
-	void Board::push_left(const Tile &t)
-		This function gives access to pushing back objects to the member stack leftSide.
-*/
 void Board::push_left(const Tile &t)
 {
 	this->leftSide.push_back(t);
 }
 
-/*
-	void Board::push_right(const Tile &t)
-		This function gives access to pushing back objects to the member stack
-		righSide.
-*/
 void Board::push_right(const Tile &t)
 {
 	this->rightSide.push_back(t);
 }
 
-/*
-	void Board::operator=(const Board &b)
-		Overloaded assignment operator.
-*/
 void Board::operator=(const Board &b)
 {
 	this->engine = b.engine;

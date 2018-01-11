@@ -1,8 +1,14 @@
+/******************************************************************************
+* Name: Austin Fouch
+* Project: 1 Longana
+* Class: CMPS 366 OPL
+* Date: 10/18/2017
+******************************************************************************/
 #include "tournament.h"
 
 void Tournament::run()
 {
-	// cout << "Load a serialized game?"
+	// Allow user to choose serialization option
 	string choice, tempChoice;
 	cout << "Load a game? (Y/N): ";
 	while(getline(cin, tempChoice))
@@ -31,7 +37,8 @@ void Tournament::run()
 					}
 					else
 					{
-						run(inFile);
+						// input was valid, run a game from file
+						run_serialized(inFile);
 					}
 				}
 				else
@@ -49,7 +56,9 @@ void Tournament::run()
 			cout << "Invalid input. Please input 'Y' to serialize or 'N' continue: ";
 	}	
 	cout << endl;
-	// else
+
+	// Set up a non-serialized tournament
+	// get score via user input
 	string tmp;
 	int usr_score;
 	cout << "Enter the tournament score: ";
@@ -62,11 +71,13 @@ void Tournament::run()
 	}
 	cout << endl;
 
+	// set the tournament's players, score, round number
 	this->players.push_back(make_unique<Computer>(0 , "Computer"));
 	this->players.push_back(make_unique<Human>(0, "Human"));	
 	this->score = usr_score;
 	this->round = 0;
 	Round round;
+	// run until a player's score is greater than the tourney score
 	do
 	{
 		this->round = (this->round % 7) + 1;
@@ -74,23 +85,28 @@ void Tournament::run()
 	} 
 	while(!(check_score(*this->players[0]) || check_score(*this->players[1])));
 
+	// display winner
 	cout << get_winner().get_name() << " has won the tournament with a score of ";
 	cout << get_winner().get_score() << "!" << endl;
 	exit(0);
 }
 
-void Tournament::run(string &filename)
+void Tournament::run_serialized(string &filename)
 {
 	Board board;
 	Boneyard boneyard;
 	bool wasPassed;
 	int currPlayer;
+	// set up players
 	this->players.push_back(make_unique<Computer>(0 , "Computer"));
 	this->players.push_back(make_unique<Human>(0 , "Human"));
+	// read serialization file into variables 
 	ifstream inFile(filename);
 	string line, tileStr;
+	// line by line parsing
 	while(getline(inFile, line))
 	{
+		// parse by word
 		istringstream ss(line);
 		string word;
 		while(ss >> word)
@@ -123,9 +139,11 @@ void Tournament::run(string &filename)
 					while(ss1 >> tileStr)
 					{
 						cout << tileStr << " ";
+						// converts char to int
 						int leftPips = tileStr[0] - 48;
 						int rightPips = tileStr[2] - 48;
 						Tile temp(leftPips, rightPips);
+						// push temp to hand
 						this->players[0]->push_back(temp);
 					}
 					cout << endl;
@@ -159,9 +177,11 @@ void Tournament::run(string &filename)
 					while(ss1 >> tileStr)
 					{
 						cout << tileStr << " ";
+						// converts char to int
 						int leftPips = tileStr[0] - 48;
 						int rightPips = tileStr[2] - 48;
 						Tile temp(leftPips, rightPips);
+						// push temp to hand
 						this->players[1]->push_back(temp);
 					}
 					cout << endl;
@@ -183,6 +203,7 @@ void Tournament::run(string &filename)
 
 			if(word == "Layout:")
 			{
+				// used to switch from leftside to rightside
 				Tile tempEng(MAX_ROUNDS - round, MAX_ROUNDS - round);
 				cout << endl << word << endl;
 				getline(inFile, line);
@@ -297,12 +318,14 @@ void Tournament::run(string &filename)
 		}
 	}
 	
+	// create round and set it with parsed data
 	Round round;
 	round.set_board(board);
 	round.set_boneyard(boneyard);
 	round.set_wasPassed(wasPassed);
 	round.set_currPlayer(currPlayer);
 	bool isSerialized = true;
+	// run serialized game
 	do
 	{
 		cout << this->players[0]->get_name() << " : ";
